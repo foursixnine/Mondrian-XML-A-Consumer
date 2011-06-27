@@ -5,7 +5,6 @@ use SOAP::Lite;
 
 use XMLA::Request;
 use Data::Dumper;
-use XMLA::Person;
 
 my $Request = XMLA::Request->new({
     dataSource => 'Provider=Mondrian;DataSource=DatasisCubo;',
@@ -14,5 +13,11 @@ my $Request = XMLA::Request->new({
     namespace => 'urn:schemas-microsoft-com:xml-analysis',
     Catalog => 'DatasisVentas',
 });
-print Dumper($Request->namespace);
-print Dumper($Request->discover('xy'));
+
+my $resultado = $Request->discover('DISCOVER_SCHEMA_ROWSETS')->result;
+foreach (@{$resultado->{root}->{row}} ){
+    print Dumper($_->{SchemaName});
+    my $_->{SchemaName} = $Request->discover($_->{SchemaName})->result;
+        print Dumper($_->{SchemaName}->{root}) if $_->{SchemaName}->{root};
+    }
+
