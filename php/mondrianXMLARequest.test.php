@@ -31,7 +31,7 @@ $Request->xmlaProvider = 'http://localhost:8080/mondrian/xmla.jsp';
 $Request->setQueryFormat('Tabular');
 $Request->Catalog = 'DatasisVentas';
 $Request->mdxQuery($MDXQuery[2]);
-
+/** comentario necesario */
 $xmla = $Request->getMondrianResponse();
 $xmlaRows = XMLARequest::getXMLASetOfRows($xmla);
 
